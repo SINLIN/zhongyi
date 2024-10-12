@@ -1,0 +1,3 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+10:21:37	15408/15408	---M-Z	-1	error ('Error%20when%20decompressing')	text/html	date:Sat,%2014%20Jan%202023%2002:09:18%20GMT	https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/index.html	F:/00_%e4%b8%8b%e8%bd%bd/%e4%b8%8b%e8%bd%bd%e7%9b%ae%e5%bd%95%20-%20Httrack/jingyuequanshu/web/html/index.html	(from )
+10:21:38	27/27	---M--	200	added ('OK')	text/plain	etag:%2262115bd0-1b%22	https://zysj.imoneso.cn/robots.txt		(from )

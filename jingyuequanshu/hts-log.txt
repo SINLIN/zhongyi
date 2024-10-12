@@ -1,0 +1,27 @@
+HTTrack3.49-2+htsswf+htsjava launched on Sat, 14 Jan 2023 10:22:34 at https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/ +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar +*.gif +*.jpg +*.jpeg +*.png +*.tif +*.bmp
+(winhttrack -qwr2%e1C2%Pnx%s%uN5%I0p7c4R1H0%kf2o0A25000%c2%f#f -F "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" -%F  -%l "zh, en, *" https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/ -O1 "F:\00_下载\下载目录 - Httrack\jingyuequanshu" +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar +*.gif +*.jpg +*.jpeg +*.png +*.tif +*.bmp )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+10:22:36	Warning: 	HTML file (0 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/
+10:22:36	Warning: 	Note: due to https://zysj.imoneso.cn remote robots.txt rules, links beginning with these path will be forbidden: /so (see in the options to disable this)
+10:22:37	Warning: 	Retry after error -4 (Interrupted transfer) at link https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/ (from primary/primary)
+10:22:37	Warning: 	HTML file (0 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/
+10:28:18	Warning: 	Link https://zysj.imoneso.cn/fixbuglog.html not scanned (follow robots meta tag)
+10:28:19	Error: 	"Unknown error" (521) at link https://beian.miit.gov.cn/ (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+10:28:22	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?865725d654e46719f257dd5a15a698844ab027eddfd5990aba72cae1812003bd30632485602430134f60bc55ca391050b680e2741bf7233a8f1da9902314a3fa
+10:28:48	Error: 	"Error when decompressing" (-1) at link https://zysj.imoneso.cn/css.css (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+10:28:48	Warning: 	Retry after error -4 (Connect Error) at link https://hm.baidu.com/hm.js?dd26fe828fe48ed870036f7e81e58f9b (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+10:28:48	Warning: 	HTML file (12840 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/index.html
+10:28:49	Warning: 	Retry after error -4 (Interrupted transfer) at link https://zysj.imoneso.cn/index.html (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+10:28:49	Warning: 	HTML file (27740 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/guji/index.html
+10:28:51	Warning: 	Retry after error -4 (Interrupted transfer) at link https://zysj.imoneso.cn/guji/index.html (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+10:28:51	Warning: 	HTML file (12840 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/index.html
+10:28:52	Warning: 	HTML file (27740 bytes) retransferred due to lack of cache: https://zysj.imoneso.cn/guji/index.html
+10:28:52	Error: 	"Connect Error" (-4) after 1 retries at link https://hm.baidu.com/hm.js?dd26fe828fe48ed870036f7e81e58f9b (from https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/)
+
+HTTrack Website Copier/3.49-2 mirror complete in 6 minutes 19 seconds : 583 links scanned, 577 files written (53372995 bytes overall), 577 files updated [12075026 bytes received at 31860 bytes/sec], 53155251 bytes transferred using HTTP compression in 563 files, ratio 21%, 28.0 requests per connection
+(3 errors, 13 warnings, 0 messages)

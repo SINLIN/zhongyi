@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+beian.miit.gov.cn	TRUE	/	FALSE	1999999999	__jsluid_s	d23e58020f68b4ea36e04c44ffa39d5e
+beian.miit.gov.cn	TRUE	/	FALSE	1999999999	SameSite	None
+

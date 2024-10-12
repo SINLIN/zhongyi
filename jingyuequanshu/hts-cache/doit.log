@@ -1,0 +1,8 @@
+-qwr2%e1C2%Pnx%s%uN5%I0p7c4R1H0%kf2o0A25000%c2%f#f -F "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" -%F "" -%l "zh, en, *" https://zysj.imoneso.cn/lilunshuji/jingyuequanshu/ -O1 "F:\00_обть\обтьд©б╪ - Httrack\jingyuequanshu" +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar +*.gif +*.jpg +*.jpeg +*.png +*.tif +*.bmp
+File generated automatically on Sat, 14 Jan 2023 10:22:34, do NOT edit
+
+To update a mirror, just launch httrack without any parameters
+The existing cache will be used (and modified)
+To have other options, retype all parameters and launch HTTrack
+To continue an interrupted mirror, just launch httrack without any parameters
+

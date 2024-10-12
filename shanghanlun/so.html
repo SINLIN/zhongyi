@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="true">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.zysj.com.cn/logo/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="https://www.zysj.com.cn/logo/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://www.zysj.com.cn/logo/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="https://www.zysj.com.cn/logo/manifest.json">
+    <link rel="mask-icon" href="https://www.zysj.com.cn/logo/safari-pinned-tab.svg" color="#ff6600">
+    <link rel="shortcut icon" href="https://www.zysj.com.cn/logo/favicon.ico">
+    <meta name="msapplication-config" content="/logo/browserconfig.xml">
+    <link rel="stylesheet" type="text/css" href="static/css/css.css" >
+    <script type="text/javascript">
+        /* user_set */
+        var z = JSON.parse( window.localStorage.getItem('u') );
+        if( z && z._cssStr ){
+            var e = document.createElement('style');
+                e.type = 'text/css';
+                e.id = 'js_user_style';
+                e.innerHTML = z._cssStr;
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(e, s);
+        }
+        /* 百度统计 */
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?dd26fe828fe48ed870036f7e81e58f9b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+
+        // 头条
+        (function(){
+            var el = document.createElement("script");
+            el.src = "https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?865725d654e46719f257dd5a15a698844ab027eddfd5990aba72cae1812003bd30632485602430134f60bc55ca391050b680e2741bf7233a8f1da9902314a3fa";
+            el.id = "ttzz";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(el, s);
+        })(window);
+
+    </script>
+<meta name="robots" content="noindex,nofollow">
+<title>站内搜索 - 中医世家</title>
+<meta name="keywords" content="站内搜索">
+</head>
+<body>
+<div id="container">
+<div id="main" class="so">
+<ul id="breadcrumb">
+<li><a href="index1.html" title="首页">首页</a></li>
+<li><h1>站内搜索</h1></li></ul>
+<style>
+    #soForm{
+        background-color: rgba(245, 245, 245, .3);
+        border-radius: 3px 3px 0 0;
+        outline: 1px solid #eee;
+    }
+    #soForm input {
+        line-height: 2em;
+        padding: .5em;
+        border: 1px solid #ddd;
+        background-color: rgba(250,250,250, .3);
+        color: #000;
+        font-weight: bold;
+    }
+
+    #eRange {
+        outline: 1px solid #eee;
+        background-color: rgba(245, 245, 245, .3);
+        border-radius: 0 0 3px 3px;
+    }
+    #eRange a {
+        margin: 0 .5em;
+    }
+
+    #soInfo { margin: 1em 0 0 0; font-size: small; }
+        #soTotalNum { padding-left: 1em; }
+    #soTip { font-size: small; }
+    #soResult h2 { color: #aaa; margin: 2em 0; }
+    #soResult dl { padding: 0 0 1em 0; }
+    #soResult dd { font-size: small; padding: 0; margin: 0; }
+    #soResult em { color: red; font-style: normal; }
+
+</style>
+
+<div id="soForm" style="margin: 1em 0 0 0; padding: .5em;">
+    <form onkeydown="if(event.keyCode==13){cseGetResult(); return false;}" style="display: flex;">
+        <input id="keyword" value="" placeholder="输入关键字" type="text" name="keyword" autocomplete="on" required="required" style=" width:60%; flex-grow:1; ">
+        <input type="button" value="搜索" onclick="cseGetResult()" style="width: 4em;">
+    </form>
+    <div id="soInfo">
+        <span>搜索技术由 <big><a href="javascript:;" target="_blank">BaiDu</a></big> 提供</span>
+        <span id="soTotalNum" style="display: inline-block;"></span>
+    </div>
+    <div id="soTip" style="font-size:x-small;"></div>
+</div>
+<div id="eRange" style="display: flex;">限定栏目：
+    <a href="javascript:void(0);" title="">全部</a>
+    <a href="javascript:void(0);" title="lilunshuji">书籍</a>
+    <a href="javascript:void(0);" title="zhongyaocai">药材</a>
+    <a href="javascript:void(0);" title="zhongyaofang">药方</a>
+    <a href="javascript:void(0);" title="yianxinde">医案</a>
+</div>
+
+<div id="soResult"></div>
+<div id="listPageInfo"><ul id="page" class="flow-x"></ul></div>
+
+<script type="text/javascript">
+    // -----------------------------------------------
+    window.BCSE_KEY = '', window.BCSE_VS = '2.0', window.BCSE_TK = '26e07ed2f2cd3d54ee9a1304dd1e5bda';!function(){window.BCse={};var e=function(e){"use strict";var t,r,o,a,n,s,i,c,u;return r=function(e,t,r){e.addEventListener?e.addEventListener(t,r,!1):e.attachEvent?e.attachEvent("on"+t,r):e["on"+t]=r},o=function(r,o){t.log("Garbage collecting!"),o.parentNode.removeChild(o),e[r]=void 0;try{delete e[r]}catch(a){}},a=function(e,t){var r,o,a="";for(r in e)e.hasOwnProperty(r)&&(r=t?encodeURIComponent(r):r,o=t?encodeURIComponent(e[r]):e[r],a+=r+"="+o+"&");return a.replace(/&$/,"")},n=function(){var e="",t=[],r="0123456789ABCDEF",o=0;for(o=0;32>o;o+=1)t[o]=r.substr(Math.floor(16*Math.random()),1);return t[12]="4",t[16]=r.substr(3&t[16]|8,1),e="flyjsonp_"+t.join("")},s=function(e,r){t.log(r),"undefined"!=typeof e&&e(r)},i=function(e,r){t.log("GET success"),"undefined"!=typeof e&&e(r),t.log(r)},c=function(e,r){t.log("POST success"),"undefined"!=typeof e&&e(r),t.log(r)},u=function(e){t.log("Request complete"),"undefined"!=typeof e&&e()},t={},t.options={debug:!1},t.init=function(e){var r;t.log("Initializing!");for(r in e)e.hasOwnProperty(r)&&(t.options[r]=e[r]);return t.log("Initialization options"),t.log(t.options),!0},t.log=function(r){e.console&&t.options.debug&&e.console.log(r)},t.get=function(m){m=m||{};var d=m.url,p=m.callbackParameter||"callback",l=m.parameters||{},y=e.document.createElement("script"),h=n(),f="?";if(!d)throw new Error("URL must be specified!");l[p]=h,d.indexOf("?")>=0&&(f="&"),d+=f+a(l,!0),e[h]=function(e){"undefined"==typeof e?s(m.error,"Invalid JSON data returned"):"post"===m.httpMethod?(e=e.query.results,e&&e.postresult?(e=e.postresult.json?e.postresult.json:e.postresult,c(m.success,e)):s(m.error,"Invalid JSON data returned")):i(m.success,e),o(h,y),u(m.complete)},t.log("Getting JSONP data"),y.setAttribute("src",d),y.setAttribute("charset","utf-8"),e.document.getElementsByTagName("head")[0].appendChild(y),r(y,"error",function(){o(h,y),u(m.complete),s(m.error,"Error while trying to access the URL")})},t.post=function(e){e=e||{};var r,o,n=e.url,s=e.parameters||{},i={};if(!n)throw new Error("URL must be specified!");r=encodeURIComponent('select * from jsonpost where url="'+n+'" and postdata="'+a(s,!1)+'"'),o="http://query.yahooapis.com/v1/public/yql?q="+r+"&format=json&env="+encodeURIComponent("store://datatables.org/alltableswithkeys"),i.url=o,i.httpMethod="post","undefined"!=typeof e.success&&(i.success=e.success),"undefined"!=typeof e.error&&(i.error=e.error),"undefined"!=typeof e.complete&&(i.complete=e.complete),t.get(i)},t}(window),t=function(){function e(){f=1}function t(){f=0}function o(e){e&&r.count(e)>0&&(e.erroStatus&&0===e.erroStatus.erroNo?(p=0,e.searchInfo&&(l=e.searchInfo,e.searchInfo.facets&&(y=e.searchInfo.facets)),e.blockData&&(d=e.blockData)):p=e.erroStatus.erroNo)}function a(e){e&&r.count(e)>0&&(0===e.error?(p=0,h=e):p=6)}function n(){var e=[];if(0===p&&d.length>0)for(var t=0;t<d.length;t++)e[t]={},e[t].title=d[t].title?d[t].title:"",0===f&&(e[t].title=e[t].title.replace(/&lt;em&gt;/g,"").replace(/<em>/g,""),e[t].title=e[t].title.replace(/&lt;\/em&gt;/g,"").replace(/<\/em>/g,"")),e[t].linkUrl=d[t].linkurl?d[t].linkurl:"",e[t]["abstract"]=d[t]["abstract"]?d[t]["abstract"]:"",e[t].image=d[t].image?d[t].image:"",e[t].dispUrl=d[t].dispurl?d[t].dispurl:"",e[t].dispTime=d[t].timeshow?d[t].timeshow:"",d[t].summarywords&&r.count(d[t].summarywords)>0&&(5===l.tplId?(e[t].forumName=d[t].summarywords.forumName?d[t].summarywords.forumName:"",e[t].author=d[t].summarywords.author?d[t].summarywords.author:"",e[t].createdTime=d[t].summarywords.createdTime?d[t].summarywords.createdTime:"",e[t].lastReplyTime=d[t].summarywords.lastReplyTime?d[t].summarywords.lastReplyTime:"",e[t].replyCount=d[t].summarywords.replyCount?d[t].summarywords.replyCount:"",e[t].viewCount=d[t].summarywords.viewCount?d[t].summarywords.viewCount:"",e[t].threadClassify=d[t].summarywords.threadClassify?d[t].summarywords.threadClassify:""):3===l.tplId?(e[t].genre=d[t].summarywords.genre?d[t].summarywords.genre:"",e[t].downloadCount=d[t].summarywords.downloadCount?d[t].summarywords.downloadCount:"",e[t].dateModified=d[t].summarywords.dateModified?d[t].summarywords.dateModified:"",e[t].gameSubCategory=d[t].summarywords.gameSubCategory?d[t].summarywords.gameSubCategory:"",e[t].datePublished=d[t].summarywords.datePublished?d[t].summarywords.datePublished:"",e[t].version=d[t].summarywords.version?d[t].summarywords.version:"",e[t].downloadUrl=d[t].summarywords.downloadUrl?d[t].summarywords.downloadUrl:"",e[t].gameCategory=d[t].summarywords.gameCategory?d[t].summarywords.gameCategory:"",e[t].typicalAgeRange=d[t].summarywords.typicalAgeRange?d[t].summarywords.typicalAgeRange:"",e[t].tag=d[t].summarywords.tag?d[t].summarywords.tag:"",e[t].device=d[t].summarywords.device?d[t].summarywords.device:"",e[t].inLanguage=d[t].summarywords.inLanguage?d[t].summarywords.inLanguage:""):2===l.tplId?(e[t].genre=d[t].summarywords.genre?d[t].summarywords.genre:"",e[t].wordCount=d[t].summarywords.wordCount?d[t].summarywords.wordCount:"",e[t].author=d[t].summarywords.author?d[t].summarywords.author:"",e[t].trialStatus=d[t].summarywords.trialStatus?d[t].summarywords.trialStatus:"",e[t].updateStatus=d[t].summarywords.updateStatus?d[t].summarywords.updateStatus:"",e[t].totalClick=d[t].summarywords.totalClick?d[t].summarywords.totalClick:"",e[t].weeklyClick=d[t].summarywords.weeklyClick?d[t].summarywords.weeklyClick:"",e[t].monthlyClick=d[t].summarywords.monthlyClick?d[t].summarywords.monthlyClick:"",e[t].dateModified=d[t].summarywords.dateModified?d[t].summarywords.dateModified:""):1===l.tplId?(e[t].genre=d[t].summarywords.genre?d[t].summarywords.genre:"",e[t].contentLocation=d[t].summarywords.contentLocation?d[t].summarywords.contentLocation:"",e[t].description=d[t].summarywords.description?d[t].summarywords.description:"",e[t].host=d[t].summarywords.host?d[t].summarywords.host:"",e[t].provider=d[t].summarywords.provider?d[t].summarywords.provider:"",e[t].actorName=d[t].summarywords.actorName?d[t].summarywords.actorName:""):6===l.tplId?(e[t].tag=d[t].summarywords.tag?d[t].summarywords.tag:"",e[t].author_nickname=d[t].summarywords.author_nickname?d[t].summarywords.author_nickname:"",e[t].author_url=d[t].summarywords.author_url?d[t].summarywords.author_url:"",e[t].replyCount=d[t].summarywords.replyCount?d[t].summarywords.replyCount:"",e[t].property=d[t].summarywords.property?d[t].summarywords.property:"",e[t].breadCrumb_url=d[t].summarywords.breadCrumb_url?d[t].summarywords.breadCrumb_url:"",e[t].breadCrumb_title=d[t].summarywords.breadCrumb_title?d[t].summarywords.breadCrumb_title:"",e[t].price_new=d[t].summarywords.price_new?d[t].summarywords.price_new:"",e[t].price_old=d[t].summarywords.price_old?d[t].summarywords.price_old:"",e[t].discount_value=d[t].summarywords.discount_value?d[t].summarywords.discount_value:"",e[t].discount_description=d[t].summarywords.discount_description?d[t].summarywords.discount_description:"",e[t].review_rating=d[t].summarywords.review_rating?d[t].summarywords.review_rating:"",e[t].review_count=d[t].summarywords.review_count?d[t].summarywords.review_count:"",e[t].location_address=d[t].summarywords.location_address?d[t].summarywords.location_address:"",e[t].location_tel=d[t].summarywords.location_tel?d[t].summarywords.location_tel:"",e[t].location_area=d[t].summarywords.location_area?d[t].summarywords.location_area:"",e[t].time_startDate=d[t].summarywords.time_startDate?d[t].summarywords.time_startDate:"",e[t].time_endDate=d[t].summarywords.time_endDate?d[t].summarywords.time_endDate:""):8===l.tplId&&(e[t].actor_name=d[t].summarywords.actor_name?d[t].summarywords.actor_name:"",e[t].genre=d[t].summarywords.genre?d[t].summarywords.genre:"",e[t].contentLocation=d[t].summarywords.contentLocation?d[t].summarywords.contentLocation:"",e[t].director_name=d[t].summarywords.director_name?d[t].summarywords.director_name:"",e[t].inLanguage=d[t].summarywords.inLanguage?d[t].summarywords.inLanguage:"",e[t].commentNum=d[t].summarywords.commentNum?d[t].summarywords.commentNum:""));return e}function s(){var e=[];if(0===p&&d.length>0)for(var t=0;t<d.length;t++)e[t]=d[t];return e}function i(){var e={};return 0===p&&r.count(l)>0&&(e.totalNum=l.totalNum?l.totalNum:"",e.tplId=l.tplId?l.tplId:"",e.curPage=l.curPage?l.curPage:"",e.searchTime=l.searchTime?l.searchTime:"",e.orgQuery=l.jcInfo&&l.jcInfo.org_query?l.jcInfo.org_query:"",e.jcQuery=l.jcInfo&&l.jcInfo.jc_query?l.jcInfo.jc_query:"",e.jcStatus=l.jcInfo&&l.jcInfo.search_status?l.jcInfo.search_status:""),e}function c(){var e={};return 0===p&&r.count(y)>0&&(e=y),e}function u(){var e=[],t=[];if(h.data&&h.data.sug&&(t=h.data.sug),0===p&&t.length>0)for(var r=0;r<t.length;r++)e[r]={},e[r].title=t[r].title?t[r].title:"",!h.type||"music"!==h.type&&"novel"!==h.type||(e[r].author=t[r].author?t[r].author:""),h.type&&"movie"===h.type&&(e[r].type=t[r].type?t[r].type:"");return e}function m(){var e={};switch(e.status=p,p){case 0:e.reason="Success!";break;case 1:e.reason="Datas are wrong! Try again later.";break;case 2:e.reason="Token is illegal! Try again later.";break;case 3:e.reason="Params are wrong! Try again later.";break;case 4:e.reason="No data.";break;case 5:e.reason="Sid is illegal! Try again later";break;case 6:e.reason="Try again later.";break;default:e.reason="Unknown error. Try again later."}return e}var d=[],p=0,l={},y={},h={},f=1;return{openHiLight:e,closeHiLight:t,initData:o,initSugData:a,returnResult:n,returnOsResult:s,returnErr:m,returnInfo:i,returnFacet:c,returnSug:u,resultData:d,infoData:l,errData:p,sugData:h}}(),r=function(){function e(e,t){var r,o=e||{};for(r in t)t.hasOwnProperty(r)&&(o[r]=t[r]);return o}function t(e,r){var o,a=e||{};for(o in r)r.hasOwnProperty(o)&&("[object Object]"===Object.prototype.toString.call(r[o])?(e[o]=e[o]||{},a[o]=t(e[o],r[o])):a[o]=r[o]);return a}function r(e,t){if(t=t||document,t.getElementsByClassName)return t.getElementsByClassName(e);for(var r=[],o=t.getElementsByTagName("*"),a=new RegExp("(^|\\s)"+e.replace(/\-/g,"\\-")+"(\\s|$)"),n=0,s=o.length;s>n;n++)a.test(o[n].className)&&r.push(o[n]);return r}function o(e){return String(e).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function a(e){var t=String(e).replace(/&quot;/g,'"').replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&amp;/g,"&");return t.replace(/&#([\d]+);/g,function(e,t){return String.fromCharCode(parseInt(t,10))})}function n(e){var t=new RegExp("(^| )"+e+"=([^;]*)(;|$)"),r=t.exec(document.cookie);return r?r[2]:null}function s(e,t,r){document.addEventListener?e.addEventListener(t,r,!1):document.attachEvent&&e.attachEvent("on"+t,function(t){t.preventDefault=function(){t.returnValue=!1},t.stopPropagation=function(){t.cancelBubble=!0},r.call(e,t)})}function i(e,t,r,o){s(e,t,function(t){for(var a=t.target||t.srcElement;!_hasClass(a,r)&&a!=e;)a=a.parentNode;_hasClass(a,r)&&o.call(a,t)})}function c(e){return""==e||e.match(/^\s+$/)?!0:!1}function u(e,t){var r=document.createElement("script");r.readyState?r.onreadystatechange=function(){("loaded"===r.readyState||"complete"===r.readyState)&&(r.onreadystatechange=null,t())}:r.onload=function(){t()},r.src=e,r.charset="utf-8",r.async=!0,document.getElementsByTagName("head")[0].appendChild(r)}function m(e){var t=typeof e;if("string"==t)return e.length;if("object"==t){var r=0;for(var o in e)r++;return r}return!1}function d(e,t,r){var o,a=Array.prototype.indexOf,n=e.length;if(0===n)return-1;if(r=+r||0,o=0>r?Math.max(0,r+n):r,a)return a.call(e,t,o);for(;n>o;o++)if(o in e&&e[o]===t)return o;return-1}function p(e){return e?e.replace(/^\s+|\s+$/g,""):void 0}return{extend:e,extendDeep:t,getElementsByClassName:r,encodeHTML:o,decodeHTML:a,getCookie:n,addEvent:s,count:m,delegateEvent:i,isEmptyOrSpacing:c,loadScript:u,indexOf:d,trim:p}}(),o=function(){function o(e,t){this.numReg=new RegExp("^[0-9]*$"),this.searchReady=1,this.initReady=1,this.sugReady=1;var r=window.location.protocol;return this.searchUrl="https:"===r?"https://gsp0.baidu.com/yrwHcjSl0MgCo2Kml5_Y_D3/api/customsearch/apisearch":"http://zhannei.baidu.com/api/customsearch/apisearch",this.sugUrl="http://znsv.baidu.com/customer_search/api/sug",this.param={nojc:1},e&&""!==e?(t&&2===t?(this.sid=e,this.os=1,this.cse=2,this.queryReady=0,this.facetReady=0):(this.sid=e,this.cse=1),this.token=BCSE_TK,void(this.version=BCSE_VS)):!1}return o.prototype.openTitleFilter=function(){this.closeTitleFilter();var e={stp:1};r.extend(this.param,e)},o.prototype.closeTitleFilter=function(){this.param.hasOwnProperty("stp")&&delete this.param.stp},o.prototype.openTimeFilter=function(e){if(e&&this.numReg.test(e)){this.closeTimeFilter();var t={sti:e};r.extend(this.param,t)}},o.prototype.closeTimeFilter=function(){this.param.hasOwnProperty("sti")&&delete this.param.sti},o.prototype.openGBK=function(){this.closeGBK();var e={ie:"gb2312"};r.extend(this.param,e)},o.prototype.closeGBK=function(){this.param.hasOwnProperty("ie")&&delete this.param.ie},o.prototype.openWap=function(){this.closeWap();var e={adapt:1};r.extend(this.param,e)},o.prototype.closeWap=function(){this.param.hasOwnProperty("adapt")&&delete this.param.adapt},o.prototype.closeJc=function(){this.openJc();var e={nojc:1};r.extend(this.param,e)},o.prototype.openJc=function(){this.param.hasOwnProperty("nojc")&&delete this.param.nojc},o.prototype.openSq=function(){this.closeSq();var e={sq:1};r.extend(this.param,e)},o.prototype.closeSq=function(){this.param.hasOwnProperty("sq")&&delete this.param.sq},o.prototype.openFieldFilter=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0){this.closeFieldFilter();var t="",o=r.count(e),a=1;for(var n in e){if(a===o)if("[object Array]"===Object.prototype.toString.call(e[n])&&e[n].length>0)for(var s=0;s<e[n].length;s++)t=s===e[n].length-1?t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s]):t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s])+"&";else t=t+encodeURIComponent(n)+"="+encodeURIComponent(e[n]);else if("[object Array]"===Object.prototype.toString.call(e[n])&&e[n].length>0)for(var s=0;s<e[n].length;s++)t=t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s])+"&";else t=t+encodeURIComponent(n)+"="+encodeURIComponent(e[n])+"&";a++}a=1;var i={flt:t};r.extend(this.param,i)}},o.prototype.closeFieldFilter=function(){this.param.hasOwnProperty("flt")&&delete this.param.flt},o.prototype.openFeildFilter=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0){this.closeFieldFilter();var t="",o=r.count(e),a=1;for(var n in e){if(a===o)if("[object Array]"===Object.prototype.toString.call(e[n])&&e[n].length>0)for(var s=0;s<e[n].length;s++)t=s===e[n].length-1?t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s]):t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s])+"&";else t=t+encodeURIComponent(n)+"="+encodeURIComponent(e[n]);else if("[object Array]"===Object.prototype.toString.call(e[n])&&e[n].length>0)for(var s=0;s<e[n].length;s++)t=t+encodeURIComponent(n)+"[]="+encodeURIComponent(e[n][s])+"&";else t=t+encodeURIComponent(n)+"="+encodeURIComponent(e[n])+"&";a++}a=1;var i={flt:t};r.extend(this.param,i)}},o.prototype.closeFeildFilter=function(){this.param.hasOwnProperty("flt")&&delete this.param.flt},o.prototype.openTimeOrder=function(){this.closeOrder();var e={srt:"lds"};r.extend(this.param,e)},o.prototype.openFieldOrder=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0){this.closeOrder();var t="";if(2===this.cse){var o=1;for(var a in e)t+=1===e[a]?1===o?"-"+a:"&-"+a:1===o?a:"&"+a,o++;o=1}else{var o=1;for(var a in e)1===e[a]?1===o&&(t+="-"+a):1===o&&(t+=a),o++;o=1}var n={srt:t};r.extend(this.param,n)}},o.prototype.closeOrder=function(){this.param.hasOwnProperty("srt")&&delete this.param.srt},o.prototype.openFeildOrder=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0){this.closeOrder();var t="";if(2===this.cse){var o=1;for(var a in e)t+=1===e[a]?1===o?"-"+a:"&-"+a:1===o?a:"&"+a,o++;o=1}else{var o=1;for(var a in e)1===e[a]?1===o&&(t+="-"+a):1===o&&(t+=a),o++;o=1}var n={srt:t};r.extend(this.param,n)}},o.prototype.closeOrder=function(){this.param.hasOwnProperty("srt")&&delete this.param.srt},o.prototype.setPageNum=function(e){if(e&&this.numReg.test(e)){if(10===e)return void(this.param.hasOwnProperty("pn")&&delete this.param.pn);e>100&&(e=100);var t={pn:e};r.extend(this.param,t)}},o.prototype.setResultType=function(e){if(0===e||1===e||2===e||3===e||5===e||6===e||8===e){if(0===e)return void(this.param.hasOwnProperty("rt")&&delete this.param.rt);var t={rt:e};r.extend(this.param,t)}},o.prototype.openHiLight=function(){t.openHiLight()},o.prototype.closeHiLight=function(){t.closeHiLight()},o.prototype.setSearchRange=function(e,t){if(2!==this.cse&&(1===e||2===e||3===e||4===e)){if(4===e)return this.param.hasOwnProperty("ct")&&delete this.param.ct,void(this.param.hasOwnProperty("cc")&&delete this.param.cc);var o="",a={ct:e};r.extend(this.param,a);var o="";2===e?t.length>0&&(o+=t.join("&")):t.length>0&&(o=t[0]);var n={cc:encodeURIComponent(o)};r.extend(this.param,n)}},o.prototype.setQueryList=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0&&2===this.cse){this.param.hasOwnProperty("qf")&&delete this.param.qf;var t="",o=r.count(e),a=1;for(var n in e)t=a===o?t+encodeURIComponent(n)+"="+encodeURIComponent(e[n]):t+encodeURIComponent(n)+"="+encodeURIComponent(e[n])+"&",a++;a=1;var s={qf:t};r.extend(this.param,s),this.queryReady=1}},o.prototype.setDispList=function(e){if("[object Array]"===Object.prototype.toString.call(e)&&e.length>0&&2===this.cse){this.param.hasOwnProperty("fl")&&delete this.param.fl;var t="";t=e.join("&");var o={fl:t};r.extend(this.param,o)}},o.prototype.setFacet=function(e){if("[object Object]"===Object.prototype.toString.call(e)&&r.count(e)>0&&2===this.cse){var t="";if(e.fields&&"[object Array]"===Object.prototype.toString.call(e.fields)&&e.fields.length>0&&(t=t+"fields[]="+e.fields.join("&fields[]=")),e.size&&(""!==t&&(t+="&"),t=t+"size="+encodeURIComponent(e.size)),e.mincount&&(""!==t&&(t+="&"),t=t+"mincount="+encodeURIComponent(e.mincount)),e.pivot&&"[object Array]"===Object.prototype.toString.call(e.pivot)&&e.pivot.length>0&&(""!==t&&(t+="&"),t=t+"pivot[]="+e.pivot.join("&pivot[]=")),""!==t){var o={facet:t};r.extend(this.param,o),this.facetReady=1}}},o.prototype.setQueryWeight=function(e){if("string"==typeof e&&2===this.cse){this.param.hasOwnProperty("pf")&&delete this.param.pf;var t={pf:encodeURIComponent(e)};r.extend(this.param,t)}},o.prototype.getJSONP=function(o,a,n){if(1===this.searchReady&&this.token&&""!==this.token){this.searchReady=0;var s={tk:this.token,v:this.version};r.extend(this.param,s);var i=this;e.get({url:o,parameters:i.param,success:function(e){i.searchReady=1,t.initData(e),1===n?a(t.returnResult()):2===n?a(t.returnInfo()):3===n?a(t.returnOsResult()):4===n&&a(t.returnFacet())},complete:function(){i.searchReady=1}})}},o.prototype.getResult=function(e,t){if(arguments[0]&&""!==arguments[0]&&arguments[1]&&""!==arguments[1]){if(arguments[2]&&this.numReg.test(arguments[2])&&arguments[2]>0){var o={p:arguments[2]-1};r.extend(this.param,o)}else this.param.hasOwnProperty("p")&&delete this.param.p;var a;2===this.cse?1===this.queryReady&&(a=this.searchUrl+"?s="+this.sid+"&os=1&q="+encodeURIComponent(e),this.getJSONP(a,t,3)):(a=this.searchUrl+"?s="+this.sid+"&q="+encodeURIComponent(e),this.getJSONP(a,t,1))}},o.prototype.getSearchInfo=function(e,o){if(arguments[0]&&""!==arguments[0]&&arguments[1]&&""!==arguments[1])if(r.count(t.returnInfo())>0)o(t.returnInfo());else{var a;2===this.cse?1===this.queryReady&&(a=this.searchUrl+"?s="+this.sid+"&os=1&q="+encodeURIComponent(e),this.getJSONP(a,o,2)):(a=this.searchUrl+"?s="+this.sid+"&q="+encodeURIComponent(e),this.getJSONP(a,o,2))}},o.prototype.getFacet=function(e,o){if(arguments[0]&&""!==arguments[0]&&arguments[1]&&""!==arguments[1]&&2===this.cse&&1===this.facetReady)if(r.count(t.returnFacet())>0)o(t.returnFacet());else{var a;2===this.cse&&1===this.queryReady&&(a=this.searchUrl+"?s="+this.sid+"&os=1&q="+encodeURIComponent(e),this.getJSONP(a,o,4))}},o.prototype.getSug=function(r,o){if(arguments[0]&&""!==arguments[0]&&arguments[1]&&""!==arguments[1]){var a="normal";if(arguments[2]&&this.numReg.test(arguments[2]))switch(arguments[2]){case 0:a="normal";break;case 1:a="movie";break;case 2:a="music";break;case 3:a="novel";break;case 4:a="health";break;case 5:a="game";break;case 6:a="soft";break;default:a="normal"}var n=this.sugUrl+"?sid="+this.sid+"&wd="+encodeURIComponent(r)+"&ch="+encodeURIComponent(a);if(1===this.sugReady&&this.token&&""!==this.token){this.sugReady=0;var s=this;e.get({url:n,success:function(e){t.initSugData(e),o(t.returnSug())},complete:function(){s.sugReady=1}})}}},o.prototype.getError=function(e){arguments[0]&&""!==arguments[0]&&e(t.returnErr())},o}();BCse.Search=o}();
+    // -----------------------------------------------
+
+
+    var hash = location.hash,
+        thisPage = 0,
+        eRangeA, eRangeT,
+        ePage = document.getElementById('page'),
+        eKeyWrod = document.getElementById('keyword'),
+        cse = new BCse.Search("6809353903149289340")
+    ;
+    if( hash ) eKeyWrod.value = decodeURIComponent(hash).replace('#', '');
+
+    cse ? cseGetResult() : errorTip();
+
+    // 选择目录
+    document.getElementById('eRange').addEventListener( 'click', function(e){
+        e = e.target || e.srcElement;
+        e.style.color = 'red';
+        eRangeT = e.title;
+        eRangeA && eRangeA.removeAttribute('style');
+        eRangeA = e;
+        cseGetResult();
+    });
+
+    // 选择分页
+    ePage.addEventListener( 'click', function ePageClick(e){
+        e = e.target || e.srcElement;
+        if( !e.title ) return;
+        thisPage = e.title;
+        document.documentElement.scrollTop = eKeyWrod.offsetTop;
+        cseGetResult();
+    });
+
+
+    function errorTip(){
+        document.getElementById('soTip').innerHTML = '如无结果！可能因百度站内搜索API引擎登记信息失效（欲进后台，总提示异常，无法操作），可点击此链接查询：<u id="soTip"><a href="https://www.baidu.com/s?wd=site%3Awww.zysj.com.cn+'+hash+'" target="_blank">site:www.zysj.com.cn '+hash+'</a></u>（或在百度照此格式搜索）';
+    }
+    function cseGetResult(){
+
+        if( eKeyWrod.value ){
+            // 1指定子目录;4删除子目录
+            cse.setSearchRange(eRangeT?1:4, ['www.zysj.com.cn/'+eRangeT]);
+            cse.getResult(
+                // 关键词查询
+                eKeyWrod.value,
+                // 列表内容
+                function(d){
+                    if( d ){
+                        var v = '', m, i = 0, l = d.length;
+                        for( ; i < l; i++ ){
+                            m = d[i];
+                            v += '<dl><dt><a href="'+m.linkUrl+'" target="_blank">'+m.title.replace('_中医世家','')+'</a></dt><dd><p class="abstract">'+m.abstract+'</p></dd></dl>';
+                        }
+                        document.getElementById('soResult').innerHTML = v;
+
+                        // 结果 / 分页信息
+                        cse.getSearchInfo(eKeyWrod.value, function(d){
+                            // 结果信息
+                            document.getElementById('soTotalNum').innerHTML = '结果约：<span class="red">'+d.totalNum+'</span>；用时：<span class="red">'+d.searchTime.toFixed(4)+'</span>。';
+
+                            //循环显示所有页码
+                            var s = '', i = 1, l = Math.floor( d.totalNum/10 )-1, p = (d.curPage||0)+1;
+                            for ( ; i <= l; i++ ) {
+                                s += i == p ? '<li><span class="BUTTON">'+i+'</span></li>' : '<li><a href="javascript:void(0);" class="BUTTON" title="'+i+'">'+ i +'</a></li>';
+                            }
+                            ePage.innerHTML = s;
+
+                            // 偏移量
+                            ePage.scrollLeft = ePage.getElementsByTagName('SPAN')['0'].offsetLeft - ePage.offsetLeft - ePage.clientWidth/2;
+                        });
+                    }
+                    else{
+                        errorTip();
+                    }
+                },
+                thisPage
+            );
+        }
+        else{
+            document.getElementById('soResult').innerHTML = '<h2>没有输入关键字</h2>';
+        }
+    }
+
+
+</script></div>
+<div id="sidebar">
+        </div>
+        <div id="header">
+            <img id="logo" src="static/picture/logo.png" width="60" height="60" alt="中医世家">
+            <ul id="nav-first" class="flow-x">
+                <li><a href="" title="站内搜索" rel="nofollow">站内搜索</a></li>
+                <li><a href="index1.html" title="首页">首页</a></li>
+                <li><a href="index5.html" title="中医古籍">中医古籍</a></li>
+                <li><a href="index2.html" title="中医书籍">中医书籍</a></li>
+                <li><a href="index6.html" title="中药材">中药材</a></li>
+                <li><a href="index7.html" title="中药方剂">中药方剂</a></li>
+                <li><a href="index8.html" title="名医">名医</a></li>
+                <li><a href="index9.html" title="医案心得">医案心得</a></li>
+                <li><a href="index10.html" title="杂集">杂集</a></li>
+            </ul>
+        </div>
+        <div id="footer">
+            <ul>
+                <li><a href="zhongyishijia.html" title="中医世家（王氏）">中医世家（王氏）</a></li>
+                <li><a href="625.html" title="本站说明及联系">本站说明及联系</a></li>
+                <li><a href="fixbuglog.html" title="改错记录">改错记录</a></li>
+            </ul>
+            <ul>
+                <li><a href="index11.html" title="兴趣词">兴趣词</a></li>
+                <li><a href="index12.html" title="病症">病症</a></li>
+                <li><a href="index13.html" title="中医学院">中医学院</a></li>
+                <li><a href="index14.html" title="中医医院">中医医院</a></li>
+                <li><a href="index15.html" title="政策法规">政策法规</a></li>
+                <li><a href="index16.html" title="综合新闻">综合新闻</a></li>
+            </ul>
+            <ul>
+                <li><a href="javascript:;" target="_blank" rel="nofollow">琼ICP备2022006157号</a> </li>
+                <!--<li><a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=61019002000488" rel="nofollow">陕公网安备61019002000488号</a></li>-->
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/js.js" ></script>
+</body>
+</html>
