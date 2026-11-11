@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
 <meta name="referrer" content="no-referrer">
-<meta name="description" content="中医学入门科普：阴阳五行、脏腑经络、四诊八纲、治则治法、中药方剂与经典典籍简介。">
-<title>中医学入门 · 阴阳五行与辨证论治</title>
+<meta name="description" content="A plain-language introduction to traditional Chinese medicine: yin-yang and the five phases, organ systems and meridians, the four examinations, the eight principles, treatment strategy, herbs and formulas, and the four classics.">
+<title>Introduction to Traditional Chinese Medicine</title>
 <style>
 :root{
   --ink:#2b2b2b; --ink-soft:#5c5c5c; --ink-faint:#8a8a8a;
@@ -17,48 +17,44 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0; background:var(--paper); color:var(--ink);
-  font:16px/1.9 "Songti SC","Source Han Serif SC","Noto Serif CJK SC",
-       "PingFang SC","Microsoft YaHei",serif;
+  font:16px/1.75 Georgia,"Times New Roman","Songti SC","Source Han Serif SC",
+       "Noto Serif",serif;
 }
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
 
-/* 页头 */
 header.site{
   border-bottom:1px solid var(--line);
   background:linear-gradient(180deg,#fffdf8,#faf6ee);
 }
 header.site .wrap{padding-top:38px;padding-bottom:30px}
-.brand{font-size:13px;letter-spacing:.32em;color:var(--accent);margin:0 0 14px}
+.brand{font-size:12px;letter-spacing:.32em;color:var(--accent);margin:0 0 14px;text-transform:uppercase}
 h1.title{
-  margin:0 0 14px; font-size:31px; line-height:1.4; font-weight:600;
-  letter-spacing:.02em;
+  margin:0 0 14px; font-size:30px; line-height:1.35; font-weight:600;
 }
-.subtitle{margin:0;color:var(--ink-soft);font-size:15px}
+.subtitle{margin:0;color:var(--ink-soft);font-size:16px}
 .meta{margin:16px 0 0;font-size:13px;color:var(--ink-faint)}
 
-/* 目录 */
 nav.toc{
   margin:34px 0 0; padding:18px 22px;
   background:#fff; border:1px solid var(--line); border-radius:6px;
 }
 nav.toc h2{
-  margin:0 0 10px; font-size:14px; font-weight:600; color:var(--ink-soft);
-  letter-spacing:.12em;
+  margin:0 0 10px; font-size:12px; font-weight:600; color:var(--ink-soft);
+  letter-spacing:.18em; text-transform:uppercase;
 }
 nav.toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:32px}
-nav.toc li{margin:3px 0;font-size:14px;break-inside:avoid}
+nav.toc li{margin:4px 0;font-size:14px;break-inside:avoid}
 
-/* 正文 */
 main{padding:36px 0 10px}
 section{margin:0 0 40px}
 h2{
   margin:0 0 16px; font-size:21px; font-weight:600; color:var(--ink);
   padding-left:12px; border-left:4px solid var(--accent); line-height:1.5;
 }
-h3{margin:26px 0 10px;font-size:17px;font-weight:600;color:var(--ink-soft)}
-p{margin:0 0 16px;text-align:justify}
+h3{margin:26px 0 10px;font-size:16.5px;font-weight:600;color:var(--ink-soft)}
+p{margin:0 0 16px;text-align:justify;hyphens:auto}
 p.lead{
   font-size:17px; color:var(--ink-soft);
   border-left:3px solid var(--accent-soft); padding-left:16px;
@@ -73,29 +69,27 @@ blockquote{
 blockquote p:last-child{margin-bottom:0}
 blockquote cite{display:block;margin-top:10px;font-size:13px;color:var(--ink-faint);font-style:normal;text-align:right}
 
-/* 概念卡 */
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:8px 0 20px}
 .card{
   background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px 18px;
 }
-.card h4{margin:0 0 8px;font-size:15px;color:var(--accent);letter-spacing:.06em}
-.card p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.8}
+.card h4{margin:0 0 8px;font-size:14px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.card p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.7}
 
-/* 表格 */
 .table-wrap{overflow-x:auto;margin:0 0 20px}
 table{border-collapse:collapse;width:100%;font-size:14.5px;background:#fff}
 th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
 th{background:#f7f3ea;font-weight:600;color:var(--ink-soft);white-space:nowrap}
 td code{font-family:ui-monospace,Consolas,monospace;font-size:13px;color:var(--accent)}
 
-/* 免责 */
+.pinyin{color:var(--ink-faint);font-style:italic;font-size:.92em}
+
 .disclaimer{
-  margin:44px 0 0;padding:18px 20px;font-size:13.5px;line-height:1.8;
+  margin:44px 0 0;padding:18px 20px;font-size:13.5px;line-height:1.75;
   color:var(--ink-faint);background:#f7f3ea;border-radius:6px;
 }
 .disclaimer strong{color:var(--ink-soft)}
 
-/* 页脚 */
 footer.site{
   margin-top:52px;border-top:1px solid var(--line);
   padding:26px 0 40px;font-size:13px;color:var(--ink-faint);text-align:center;
@@ -103,7 +97,7 @@ footer.site{
 footer.site p{margin:4px 0;text-align:center}
 
 @media (max-width:600px){
-  h1.title{font-size:24px}
+  h1.title{font-size:23px}
   .wrap{padding:0 18px}
   nav.toc ol{columns:1}
   body{font-size:15.5px}
@@ -118,174 +112,174 @@ footer.site p{margin:4px 0;text-align:center}
 
 <header class="site">
   <div class="wrap">
-    <p class="brand">中 医 学 入 门</p>
-    <h1 class="title">阴阳五行与辨证论治：中医是怎样看病的</h1>
-    <p class="subtitle">从整体观出发，认识中医的基本框架、诊断方法与用药思路</p>
-    <p class="meta">科普读物 · 适合零基础阅读</p>
+    <p class="brand">An Introduction to TCM</p>
+    <h1 class="title">Yin-Yang and Pattern Differentiation: How Chinese Medicine Reads the Body</h1>
+    <p class="subtitle">A plain-language tour of the basic framework, diagnostic methods, and treatment logic of traditional Chinese medicine</p>
+    <p class="meta">Explanatory article &middot; no prior background required</p>
   </div>
 </header>
 
 <div class="wrap">
 
   <nav class="toc">
-    <h2>目 录</h2>
+    <h2>Contents</h2>
     <ol>
-      <li><a href="#idea">两种医学，两种思路</a></li>
-      <li><a href="#yinyang">阴阳与五行</a></li>
-      <li><a href="#zangfu">脏腑与经络</a></li>
-      <li><a href="#sizhen">四诊：望闻问切</a></li>
-      <li><a href="#bagang">八纲辨证</a></li>
-      <li><a href="#zhize">治则与治法</a></li>
-      <li><a href="#fangyao">中药与方剂</a></li>
-      <li><a href="#dianji">四部经典</a></li>
-      <li><a href="#wqu">常见认识误区</a></li>
+      <li><a href="#idea">Two Medicines, Two Questions</a></li>
+      <li><a href="#yinyang">Yin-Yang and the Five Phases</a></li>
+      <li><a href="#zangfu">Organ Systems and Meridians</a></li>
+      <li><a href="#sizhen">The Four Examinations</a></li>
+      <li><a href="#bagang">The Eight Principles</a></li>
+      <li><a href="#zhize">Treatment Strategy</a></li>
+      <li><a href="#fangyao">Herbs and Formulas</a></li>
+      <li><a href="#dianji">The Four Classics</a></li>
+      <li><a href="#misconceptions">Common Misconceptions</a></li>
     </ol>
   </nav>
 
   <main>
 
     <section id="idea">
-      <h2>一、两种医学，两种思路</h2>
-      <p class="lead">现代医学擅长回答「这是什么病」，中医更关心「这个人出了什么问题」。前者重在找到病因、定位病灶；后者重在把握人体当下的整体状态。</p>
-      <p>中医把人体看作一个相互关联的整体：脏腑之间、体表与内脏之间、人与自然环境之间，都在持续地相互影响。因此中医看病时，不只看局部的症状，还要看这个人的体质、情绪、饮食、作息与季节气候。</p>
-      <p>由此形成了中医最核心的两条原则：<em>整体观念</em>与<em>辨证论治</em>。</p>
+      <h2>1. Two Medicines, Two Questions</h2>
+      <p class="lead">Modern medicine tends to ask <em>what disease is this?</em> Chinese medicine tends to ask <em>what has gone out of balance in this person?</em> The first looks for a cause and a lesion; the second tries to characterise the body's present state as a whole.</p>
+      <p>In the Chinese medical view the body is an interconnected system: the internal organs influence one another, the surface and the interior communicate, and the person is continuous with climate, season, diet, and emotional life. A symptom is therefore read not in isolation but in the context of the whole person.</p>
+      <p>Two principles follow from this and run through everything below: <em>holistic view</em> and <em>pattern differentiation</em>.</p>
       <div class="cards">
         <div class="card">
-          <h4>整体观念</h4>
-          <p>人体各部分是连通的整体，同时与自然、社会环境相应。局部病变常是整体失衡的表现。</p>
+          <h4>Holistic View</h4>
+          <p>The parts of the body form one connected whole, and that whole is embedded in its environment. Local problems are usually expressions of a wider imbalance.</p>
         </div>
         <div class="card">
-          <h4>辨证论治</h4>
-          <p>「证」是疾病在某一阶段的表现出的综合状态。同一种病可有不同证，同一个证也可出现在不同病中。</p>
+          <h4>Pattern Differentiation</h4>
+          <p>A <em>pattern</em> (zheng) is the combined state of a person at a given stage of illness. One disease may present several patterns; one pattern may appear across different diseases.</p>
         </div>
       </div>
-      <p>这也解释了一个常被误解的现象：为什么两个人得的是「同一种病」，中医开出的方子却不同？因为他们的「证」不同。反过来，不同的病只要「证」相同，治法就可能相通，这就是所谓「异病同治」。</p>
+      <p>This explains a question that puzzles many newcomers: why do two people with the "same disease" receive different formulas? Because their patterns differ. Conversely, different diseases may share a pattern and therefore share a treatment approach &mdash; the classical idea of "treating different diseases by the same method."</p>
     </section>
 
     <section id="yinyang">
-      <h2>二、阴阳与五行</h2>
-      <p>阴阳并非玄学符号，而是古人对事物两种基本属性的归类方式：凡是运动的、温热的、明亮的、亢进的，属<em>阳</em>；凡是静止的、寒凉的、晦暗的、抑制的，属<em>阴</em>。二者互为根本、此消彼长，并在一定条件下相互转化。</p>
-      <p>健康被视为阴阳的相对平衡。失衡则表现为：</p>
+      <h2>2. Yin-Yang and the Five Phases</h2>
+      <p>Yin and yang are not mystical entities. They are a way of sorting the two basic tendencies of any phenomenon: the active, warm, bright, and expanding is <em>yang</em>; the still, cool, dark, and contracting is <em>yin</em>. The pair is relative, mutually rooted, and each can turn into the other under the right conditions.</p>
+      <p>Health is described as a working balance between them. Imbalance shows up in recognisable directions:</p>
       <ul>
-        <li><strong>阳盛</strong>：发热、面红、口渴、烦躁、便秘。</li>
-        <li><strong>阴盛</strong>：畏寒、肢冷、面色苍白、便溏。</li>
-        <li><strong>阴虚</strong>：五心烦热、盗汗、口干、舌红少苔。</li>
-        <li><strong>阳虚</strong>：神疲乏力、畏寒喜暖、小便清长。</li>
+        <li><strong>Yang excess</strong> &mdash; fever, flushed face, thirst, agitation, constipation.</li>
+        <li><strong>Yin excess</strong> &mdash; aversion to cold, cold limbs, pale complexion, loose stools.</li>
+        <li><strong>Yin deficiency</strong> &mdash; heat in the palms and soles, night sweats, dry mouth, red tongue with little coating.</li>
+        <li><strong>Yang deficiency</strong> &mdash; fatigue, sensitivity to cold, preference for warmth, copious clear urine.</li>
       </ul>
-      <p>五行（木、火、土、金、水）则用于描述脏腑之间相生相克的动态关系。例如肝属木、心属火、脾属土、肺属金、肾属水，木生火、火生土……形成一个既相互资生又相互制约的网络。它的价值不在于「五」这个数字，而在于提供了一套描述系统内部调节关系的模型。</p>
+      <p>The five phases (wood, fire, earth, metal, water) describe how organ systems generate and restrain one another: liver corresponds to wood, heart to fire, spleen to earth, lung to metal, kidney to water. Wood feeds fire, fire produces earth, and so on, while each also checks another. The value of the scheme lies less in the number five than in its being a model of regulation inside a system.</p>
     </section>
 
     <section id="zangfu">
-      <h2>三、脏腑与经络</h2>
-      <p>中医的「脏腑」与解剖学器官并不完全对应，它更接近<em>功能系统</em>的概念。理解这一点，是读懂中医理论的关键。</p>
+      <h2>3. Organ Systems and Meridians</h2>
+      <p>The Chinese "organs" (zangfu) are not identical to anatomical organs. They are better understood as <em>functional systems</em>. Grasping this point is the key to reading the theory.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>名称</th><th>主要功能概括</th></tr></thead>
+          <thead><tr><th>System</th><th>Function in brief</th></tr></thead>
           <tbody>
-            <tr><td>心</td><td>主血脉，主神明（与精神意识活动相关）</td></tr>
-            <tr><td>肝</td><td>主疏泄（调畅气机与情志），主藏血</td></tr>
-            <tr><td>脾</td><td>主运化（消化吸收与输布），主统血</td></tr>
-            <tr><td>肺</td><td>主气、司呼吸，主宣发肃降，通调水道</td></tr>
-            <tr><td>肾</td><td>藏精，主水，主纳气，与生长发育相关</td></tr>
+            <tr><td>Heart</td><td>Governs the blood vessels; houses the spirit, understood as mental and emotional activity</td></tr>
+            <tr><td>Liver</td><td>Maintains free flow of qi and emotion; stores blood</td></tr>
+            <tr><td>Spleen</td><td>Transforms and transports food and fluids; keeps blood within the vessels</td></tr>
+            <tr><td>Lung</td><td>Governs qi and respiration; disseminates and descends; regulates water passages</td></tr>
+            <tr><td>Kidney</td><td>Stores essence; governs water; assists inhalation; linked to growth and development</td></tr>
           </tbody>
         </table>
       </div>
-      <p>经络是运行气血、联络脏腑与体表的通道系统。十二正经与奇经八脉构成网络，针灸、推拿正是通过刺激体表的特定穴位来调节这一系统。</p>
+      <p>Meridians form the network that carries qi and blood and connects the interior organs with the body surface. The twelve principal channels and the eight extraordinary vessels make up this map. Acupuncture and tui na work by stimulating specific points along it.</p>
       <blockquote>
-        <p>中医的五脏，重点在「藏象」——由内在功能表现于外的征象，而非解剖刀下的一块组织。</p>
+        <p>The organs of Chinese medicine are chiefly about <em>manifestation</em> &mdash; the outward signs of an inward function &mdash; rather than about a tissue under the scalpel.</p>
       </blockquote>
     </section>
 
     <section id="sizhen">
-      <h2>四、四诊：望、闻、问、切</h2>
-      <p>四诊是中医收集信息的基本方法，四者互相印证，不可偏废。</p>
+      <h2>4. The Four Examinations</h2>
+      <p>Information is gathered by four methods. They are meant to cross-check one another; none is sufficient alone.</p>
       <div class="cards">
-        <div class="card"><h4>望</h4><p>观察神色、形态、舌象、分泌物等。舌诊尤为重要，舌质反映气血盛衰，舌苔反映邪气性质。</p></div>
-        <div class="card"><h4>闻</h4><p>听声音（语声、呼吸、咳嗽）与嗅气味（口气、体气、排泄物）。</p></div>
-        <div class="card"><h4>问</h4><p>询问症状、病史、饮食起居、情志、睡眠、二便、月经等，是信息量最大的一环。</p></div>
-        <div class="card"><h4>切</h4><p>包括切脉与按诊。脉象分浮沉、迟数、虚实等，反映气血运行与脏腑状态。</p></div>
+        <div class="card"><h4>Looking</h4><p>Spirit, bearing, body shape, and especially the tongue: its body reflects the state of qi and blood, its coating the nature of the pathogenic influence.</p></div>
+        <div class="card"><h4>Listening &amp; Smelling</h4><p>Voice, breathing, cough; and odours of breath, body, and excretions.</p></div>
+        <div class="card"><h4>Asking</h4><p>History, onset, diet, sleep, emotions, stool and urine, menstrual pattern. Usually the largest single source of information.</p></div>
+        <div class="card"><h4>Palpating</h4><p>Pulse taking and abdominal palpation. Pulse qualities such as floating or deep, slow or rapid, deficient or excess reflect the movement of qi and blood.</p></div>
       </div>
-      <p>四诊合参之后，才能归纳出一个「证」——它不是单一症状，而是对当前病位、病性、正邪力量对比的综合判断。这一步做错，后面的用药就全盘偏差。</p>
+      <p>Only after all four does a practitioner settle on a pattern &mdash; not a single symptom, but a judgement about location, nature, and the balance of resistance and deficiency. An error here throws off everything that follows.</p>
     </section>
 
     <section id="bagang">
-      <h2>五、八纲辨证</h2>
-      <p>八纲是辨证的总纲，用四对相互对立的概念来定位疾病的性质：</p>
+      <h2>5. The Eight Principles</h2>
+      <p>The eight principles are the general framework of differentiation: four paired opposites that locate the character of an illness.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>纲领</th><th>含义</th><th>常见提示</th></tr></thead>
+          <thead><tr><th>Pair</th><th>What it describes</th><th>Typical signs</th></tr></thead>
           <tbody>
-            <tr><td>表 / 里</td><td>病位的浅深</td><td>表证多见恶寒发热、脉浮；里证则病在脏腑</td></tr>
-            <tr><td>寒 / 热</td><td>病性的性质</td><td>寒证喜温畏寒、舌淡；热证口渴便干、舌红</td></tr>
-            <tr><td>虚 / 实</td><td>正邪的强弱对比</td><td>虚证正气不足；实证邪气有余</td></tr>
-            <tr><td>阴 / 阳</td><td>总纲，统摄其余六纲</td><td>表、热、实属阳；里、寒、虚属阴</td></tr>
+            <tr><td>Exterior / Interior</td><td>Depth of the illness</td><td>Exterior: chills and fever, floating pulse. Interior: involvement of the organs</td></tr>
+            <tr><td>Cold / Heat</td><td>Nature of the condition</td><td>Cold: aversion to cold, pale tongue. Heat: thirst, dry stool, red tongue</td></tr>
+            <tr><td>Deficiency / Excess</td><td>Balance of resistance and pathogen</td><td>Deficiency: insufficient vital qi. Excess: a pathogen that is stronger than the body's response</td></tr>
+            <tr><td>Yin / Yang</td><td>The summary pair</td><td>Exterior, heat, and excess are yang; interior, cold, and deficiency are yin</td></tr>
           </tbody>
         </table>
       </div>
-      <p>临床中八纲常交叉组合，如「表寒里热」「虚实夹杂」。真实病例极少是单一纲，这也是中医辨证需要经验积累的原因。</p>
+      <p>In practice the principles combine: "exterior cold with interior heat," "deficiency and excess intermingled." Genuine cases are rarely a single principle, which is one reason pattern differentiation takes years to learn.</p>
     </section>
 
     <section id="zhize">
-      <h2>六、治则与治法</h2>
-      <p>治则是治疗的总方向，治法是具体手段。经典表述有「寒者热之、热者寒之、虚者补之、实者泻之」。</p>
+      <h2>6. Treatment Strategy</h2>
+      <p>Strategy sets the direction; method supplies the means. The classical formulations are compact: "treat cold with heat, heat with cold, deficiency by supplementing, excess by draining."</p>
       <ul>
-        <li><strong>扶正与祛邪</strong>：正虚为主则扶正，邪实为主则祛邪，虚实夹杂则攻补兼施。</li>
-        <li><strong>标本缓急</strong>：「急则治其标，缓则治其本」，先解决紧急症状，再处理根本问题。</li>
-        <li><strong>调整阴阳</strong>：损其偏盛、补其偏衰，恢复相对平衡。</li>
-        <li><strong>因人、因时、因地制宜</strong>：同一证在不同体质、季节、地域下，用药轻重不同。</li>
+        <li><strong>Support the upright, dispel the pathogen</strong> &mdash; strengthen what is deficient when deficiency dominates, clear the pathogen when excess dominates, do both when they are intermingled.</li>
+        <li><strong>Root and branch</strong> &mdash; in acute situations address the branch first, in chronic ones the root.</li>
+        <li><strong>Restore balance</strong> &mdash; reduce what is excessive, supplement what is insufficient, and let the pair return to relative equilibrium.</li>
+        <li><strong>Adapt to the person, season, and place</strong> &mdash; the same pattern calls for different dosage and selection depending on constitution, climate, and locality.</li>
       </ul>
-      <p>传统归纳的治法有「汗、吐、下、和、温、清、消、补」八法，分别对应解表、涌吐、攻下、和解、温里、清热、消导、补益等手段。</p>
+      <p>The traditional list of eight methods &mdash; diaphoresis, emesis, purgation, harmonisation, warming, clearing, reduction, and supplementation &mdash; maps onto releasing the exterior, inducing vomiting, purging downward, harmonising, warming the interior, clearing heat, resolving stagnation, and supplementing deficiency.</p>
     </section>
 
     <section id="fangyao">
-      <h2>七、中药与方剂</h2>
-      <h3>四气五味</h3>
-      <p>中药的性能用「四气」与「五味」描述。四气是寒、热、温、凉四种药性，决定药物对人体的寒热趋向；五味是辛、甘、酸、苦、咸，各有作用倾向：辛能散能行，甘能补能缓，酸能收能涩，苦能泄能燥，咸能软能下。</p>
-      <h3>君臣佐使</h3>
-      <p>方剂不是药物的随意堆砌，而是有明确分工的配伍结构：</p>
+      <h2>7. Herbs and Formulas</h2>
+      <h3>Four natures, five flavours</h3>
+      <p>Herbal properties are described by four natures and five flavours. The natures &mdash; cold, hot, warm, cool &mdash; give the direction in which a substance moves the body's temperature. The flavours carry tendencies: pungent disperses and moves, sweet supplements and moderates, sour gathers and astringes, bitter drains and dries, salty softens and moves downward.</p>
+      <h3>Roles within a formula</h3>
+      <p>A formula is a structure with a division of labour, not a pile of herbs:</p>
       <ul>
-        <li><strong>君药</strong>：针对主证，药力最强，用量通常最大。</li>
-        <li><strong>臣药</strong>：辅助君药，或兼治次要症状。</li>
-        <li><strong>佐药</strong>：制约君药的偏性、减轻毒性，或反佐以顺应病势。</li>
-        <li><strong>使药</strong>：引经报使，或调和诸药。</li>
+        <li><strong>Chief</strong> &mdash; addresses the main pattern; usually the strongest and largest in dose.</li>
+        <li><strong>Deputy</strong> &mdash; supports the chief or addresses a secondary aspect.</li>
+        <li><strong>Assistant</strong> &mdash; moderates the chief's tendency, reduces toxicity, or acts as a counterbalance.</li>
+        <li><strong>Envoy</strong> &mdash; guides the action to a region or harmonises the whole.</li>
       </ul>
-      <p>配伍的意义在于「增效减毒」。两药合用功效增强称「相须」「相使」；相互削弱或产生毒副作用称「相恶」「相反」。传统「十八反」「十九畏」即是对禁忌配伍的经验总结。</p>
+      <p>Combination is about increasing effect and reducing harm. Two herbs that reinforce each other form a mutual accentuation; two that weaken or injure form an incompatibility. The classical lists of eighteen incompatibilities and nineteen antagonisms record accumulated experience with combinations to avoid.</p>
       <blockquote>
-        <p>药有偏性，方能纠人之偏。若人身无偏，则药即是毒。</p>
+        <p>A herb corrects a bias precisely because it has one of its own. Where there is no bias in the person, the medicine is the poison.</p>
       </blockquote>
     </section>
 
     <section id="dianji">
-      <h2>八、四部经典</h2>
-      <p>中医理论体系的形成，主要依托四部奠基之作：</p>
+      <h2>8. The Four Classics</h2>
+      <p>The theoretical system rests on four foundational works.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>典籍</th><th>成书年代</th><th>核心贡献</th></tr></thead>
+          <thead><tr><th>Work</th><th>Period</th><th>Contribution</th></tr></thead>
           <tbody>
-            <tr><td>《黄帝内经》</td><td>战国至秦汉</td><td>确立阴阳五行、藏象经络、病因病机等基础理论，分《素问》《灵枢》两部分</td></tr>
-            <tr><td>《难经》</td><td>汉代</td><td>以问答体补充发挥《内经》要旨，尤详于脉学与经络</td></tr>
-            <tr><td>《神农本草经》</td><td>汉代</td><td>现存最早的药学专著，载药 365 种，首创三品分类</td></tr>
-            <tr><td>《伤寒杂病论》</td><td>东汉·张仲景</td><td>创立六经辨证与脏腑辨证体系，奠定临床辨证论治的基础</td></tr>
+            <tr><td><em>Huangdi Neijing</em><br><span class="pinyin">Inner Canon of the Yellow Emperor</span></td><td>Warring States to Han</td><td>Establishes yin-yang, five phases, organ manifestation, and the theory of disease; in two parts, <em>Suwen</em> and <em>Lingshu</em></td></tr>
+            <tr><td><em>Nanjing</em><br><span class="pinyin">Classic of Difficult Issues</span></td><td>Han</td><td>Expands on the Inner Canon in question-and-answer form, especially pulse and the channels</td></tr>
+            <tr><td><em>Shennong Bencao Jing</em><br><span class="pinyin">Divine Husbandman's Materia Medica</span></td><td>Han</td><td>The earliest surviving pharmacology, 365 substances in three grades</td></tr>
+            <tr><td><em>Shanghan Zabing Lun</em><br><span class="pinyin">Treatise on Cold Damage and Miscellaneous Disorders</span></td><td>Eastern Han, Zhang Zhongjing</td><td>Creates the six-channel and organ-pattern systems; the foundation of clinical differentiation</td></tr>
           </tbody>
         </table>
       </div>
-      <p>此后历代均有发展：金元四大家的学术争鸣、明代张介宾《景岳全书》对阴阳理论的系统发挥、清代叶天士的温病学说，以及近代张锡纯《医学衷中参西录》尝试汇通中西，都是这条脉络上的重要节点。</p>
+      <p>Later centuries continued the tradition: the four masters of the Jin-Yuan period and their competing schools, the Ming synthesis of yin-yang theory in Zhang Jiebin's <em>Jingyue Quanshu</em>, the Qing development of warm-disease theory, and Zhang Xichun's early twentieth-century attempt at a dialogue between Chinese and Western medicine in <em>Yixue Zhongzhong Canxi Lu</em>.</p>
     </section>
 
-    <section id="wqu">
-      <h2>九、常见认识误区</h2>
+    <section id="misconceptions">
+      <h2>9. Common Misconceptions</h2>
       <ul>
-        <li><strong>「中药没有副作用」</strong>——错误。中药有明确的偏性与禁忌，用之不当同样伤身，「是药三分毒」即指此。</li>
-        <li><strong>「中医不科学」</strong>——需要区分层次。中医的疗效观察积累了大量经验事实，其理论语言（阴阳五行）属于古代自然哲学的表达方式，与现代生物学语言不同体系，不能简单以一方否定另一方。</li>
-        <li><strong>「中医慢，只能调理」</strong>——不准确。中医在急症（如高热、剧痛、吐泻、出血）中同样有相应手段，历代医案中急症救治记载甚多。</li>
-        <li><strong>「照方抓药就能治病」</strong>——危险。方剂须随证加减，同一张方子对证有效，不对证可能有害。切勿自行照书用药。</li>
-        <li><strong>「脉诊能诊百病」</strong>——夸大。脉诊只是四诊之一，必须与望、闻、问合参，单凭切脉下结论并不可靠。</li>
+        <li><strong>"Herbs have no side effects."</strong> Untrue. Herbs have definite biases and contraindications; used wrongly they cause harm. The old saying that every medicine is one-third poison refers to exactly this.</li>
+        <li><strong>"Chinese medicine is simply unscientific."</strong> The question needs unpacking. There is a large body of accumulated clinical observation, while the theoretical vocabulary of yin-yang and the five phases belongs to an older natural philosophy. The two vocabularies are different systems of description, and neither automatically refutes the other.</li>
+        <li><strong>"It is slow and only good for chronic complaints."</strong> Inaccurate. Historical case records include a great deal of acute care &mdash; high fever, severe pain, vomiting and diarrhoea, bleeding.</li>
+        <li><strong>"Following a published formula is enough."</strong> Risky. Formulas are modified according to the pattern; a formula that fits one pattern may harm someone with another. Self-prescribing from a book is not advisable.</li>
+        <li><strong>"Pulse reading can diagnose anything."</strong> Overstated. Pulse is one of four examinations and must be combined with looking, listening, and asking. Conclusions drawn from the pulse alone are unreliable.</li>
       </ul>
     </section>
 
     <div class="disclaimer">
-      <p><strong>说明</strong>：本站为个人整理的中医典籍与知识存档，仅供学习与兴趣阅读之用，不构成任何医疗建议、诊断或治疗方案。</p>
-      <p>中医药的使用须由具备资质的执业医师根据具体病情辨证施治。身体不适请及时前往正规医疗机构就诊，切勿依据本站内容自行用药或延误治疗。</p>
+      <p><strong>Note.</strong> This site is a personal archive of Chinese medical classics and background material, provided for study and general interest only. It is not medical advice, diagnosis, or a treatment plan.</p>
+      <p>The use of Chinese herbal medicine should be supervised by a qualified practitioner who can assess the individual case. If you are unwell, consult a licensed clinician; do not self-treat or delay care on the basis of anything read here.</p>
     </div>
 
   </main>
@@ -293,8 +287,8 @@ footer.site p{margin:4px 0;text-align:center}
 
 <footer class="site">
   <div class="wrap">
-    <p>中医典籍存档 · 科普与学习用途</p>
-    <p>本站内容整理自公开典籍，仅供爱好者参考</p>
+    <p>Archive of Chinese Medical Classics &middot; for study and general interest</p>
+    <p>Compiled from publicly available classical sources</p>
   </div>
 </footer>
 

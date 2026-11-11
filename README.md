@@ -5,7 +5,7 @@
 
 ## 目录结构
 
-    index.html                站点根：中医科普页（外观为普通文章，含 noindex，不含任何真实路径）
+    index.html                站点根：英文中医科普页（外观为普通文章，含 noindex，不含任何真实路径）
     404.html                  not_found_handling 使用的错误页
     robots.txt                全站 Disallow，屏蔽搜索引擎与 AI 爬虫
     _headers                  Workers 响应头（缓存 + 安全）
@@ -34,7 +34,7 @@ yixuezhongzhongcanxilu 使用 static/ 前缀，其余三本使用 web/ 前缀。
 
 | 路径 | 内容 |
 | --- | --- |
-| `/` | 中医科普页（外观为普通文章，noindex，不暴露任何内部路径） |
+| `/` | 英文中医科普页（外观为普通文章，noindex，不暴露任何内部路径） |
 | `/zysj/` | 经书导航（真实入口） |
 | `/zysj/shanghanlun/` | 伤寒论 |
 | `/zysj/shanghanzhabinglun/web/html/` | 伤寒杂病论 |
