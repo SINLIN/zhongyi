@@ -14,6 +14,10 @@ scripts/
 *.z
 *.zip
 
+# 书籍原始来源文件（保留在仓库中用于溯源，不对外部署）
+*.epub
+_source/
+
 # 系统与编辑器临时文件
 Thumbs.db
 desktop.ini
