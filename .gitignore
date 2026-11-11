@@ -6,3 +6,6 @@ zysj/**/hts-cache/*.zip
 Thumbs.db
 desktop.ini
 .DS_Store
+# Wrangler / Node
+.wrangler/
+node_modules/

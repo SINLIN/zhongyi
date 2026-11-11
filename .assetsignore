@@ -1,0 +1,31 @@
+# Cloudflare Workers Static Assets 排除清单
+# 语序与 .gitignore 相同，但这些文件即使存在于仓库也不会被部署
+
+# 版本控制与工具目录
+.git/
+.github/
+.vscode/
+.idea/
+
+# 构建/运维脚本（不需要对外提供）
+scripts/
+
+# HTTrack 抓取产物
+*.z
+*.zip
+
+# 系统与编辑器临时文件
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 仓库元数据
+.gitattributes
+.gitignore
+README.md
+
+# 注意：zysj/index.html 是站点真实入口（/zysj），不可排除
+# Wrangler / Node
+.wrangler/
+node_modules/
+package-lock.json

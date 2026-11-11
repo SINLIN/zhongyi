@@ -1,0 +1,25 @@
+# Cloudflare Workers Static Assets 响应头
+# 仅使用 Workers 支持的路径模式（精确路径或结尾 * 通配）
+# 后面的规则覆盖前面的同名头
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: same-origin
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/404.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: public, max-age=3600
+
+# 站点根：禁止索引与抓取，且不被缓存
+/
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Referrer-Policy: no-referrer
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 书籍目录入口：同样禁止被搜索引擎收录
+/zysj/
+  X-Robots-Tag: noindex, nofollow, noarchive

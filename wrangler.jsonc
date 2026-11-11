@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "zhongyi",
+  "compatibility_date": "2025-11-01",
+
+  // 纯静态站点：无 Worker 脚本，仅托管静态资源
+  "assets": {
+    "directory": "./",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
