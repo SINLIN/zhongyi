@@ -65,12 +65,41 @@ $kwRx = New-Object System.Text.RegularExpressions.Regex('<meta name="keywords" c
 $descRx = New-Object System.Text.RegularExpressions.Regex('<meta name="description" content="[^"]*">')
 $h1Rx = New-Object System.Text.RegularExpressions.Regex('<h1 id="ci\d+">[^<]*</h1>')
 $contentRx = New-Object System.Text.RegularExpressions.Regex('(?s)<div id="content">.*?</div>\s*\r?\n(?=<ul id="nav-prev-next">)')
-$navRx = New-Object System.Text.RegularExpressions.Regex('(?s)<ul id="nav-prev-next">.*?</ul>')
 $crumbRx = New-Object System.Text.RegularExpressions.Regex('<li><span>[^<]*</span></li>')
 
-foreach ($rx in @($titleRx, $kwRx, $descRx, $h1Rx, $contentRx, $navRx, $crumbRx)) {
+foreach ($rx in @($titleRx, $kwRx, $descRx, $h1Rx, $contentRx, $crumbRx)) {
     if (-not $rx.IsMatch($tpl)) { throw "template anchor not found: $($rx.ToString())" }
 }
+
+# <ul id="nav-prev-next"> nests <ul> inside <li>, so a non-greedy regex would stop
+# at the first inner </ul>. Walk the markup and match the closing tag by depth.
+function Get-NavBounds([string]$text) {
+    $head = '<ul id="nav-prev-next">'
+    $start = $text.IndexOf($head, [StringComparison]::Ordinal)
+    if ($start -lt 0) { return $null }
+    $depth = 0
+    $i = $start
+    while ($i -lt $text.Length) {
+        $open = $text.IndexOf('<ul', $i, [StringComparison]::Ordinal)
+        $close = $text.IndexOf('</ul>', $i, [StringComparison]::Ordinal)
+        if ($close -lt 0) { return $null }
+        if ($open -ge 0 -and $open -lt $close) {
+            $depth++
+            $i = $open + 3
+        }
+        else {
+            $depth--
+            $i = $close + 5
+            if ($depth -eq 0) {
+                return @{ Start = $start; Length = $i - $start }
+            }
+        }
+    }
+    return $null
+}
+
+$navBounds = Get-NavBounds $tpl
+if (-not $navBounds) { throw 'nav-prev-next block not found in template' }
 
 function Get-SectionMarkup([string]$text, [string]$ci) {
     $open = '<div class="section" id="ci' + $ci + '">'
@@ -153,7 +182,11 @@ for ($i = 0; $i -lt $total; $i++) {
     $page = $crumbRx.Replace($page, '<li><span>' + $ch.Category + '</span></li>', 1)
     $page = $h1Rx.Replace($page, '<h1 id="ci' + $ch.Si + '">' + $heading + '</h1>', 1)
     $page = $contentRx.Replace($page, '<div id="content">' + "`n" + $bodyHtml + "`n</div>" + "`n", 1)
-    $page = $navRx.Replace($page, $nav, 1)
+
+    # recompute bounds: the content replacement above changed the text length
+    $navBounds = Get-NavBounds $page
+    if (-not $navBounds) { throw "nav-prev-next block not found after content rewrite ($($ch.File))" }
+    $page = $page.Remove($navBounds.Start, $navBounds.Length).Insert($navBounds.Start, $nav)
 
     if ($Apply) { Write-Text $target $page $tplData.Bom }
     $made++

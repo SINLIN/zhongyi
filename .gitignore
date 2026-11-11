@@ -9,3 +9,6 @@ desktop.ini
 # Wrangler / Node
 .wrangler/
 node_modules/
+# 章节解析与统计产物（由 scripts 生成）
+zysj/**/_chapters.json
+zysj/**/_missing_chapters.csv
