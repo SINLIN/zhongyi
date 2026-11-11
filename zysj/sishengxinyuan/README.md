@@ -38,6 +38,19 @@
 
 `1296` 为源站书籍编号，`13` 为章节序号。共 189 个页面（EPUB spine 190 项，titlepage 除外）。
 
+## 全本页 quanben.html
+
+- 与 `yixuezhongzhongcanxilu/quanben.html` 同构：`<div class="section" id="ciN">` + `<h2/h3 class="title">`
+- 189 个章节全部展开，`#main` 带 `content all page` 三个类
+- 面包屑：首页 / 中医书籍 / 《四圣心源》，其后是 `<h1>《四圣心源》<small>(全本)</small></h1>`
+- 侧栏内嵌（非 catalog.js）且 `data-get="q"`，点目录项在本页内跳转到 `#ciN`
+- 共享 `css.css` 中的 `#content>div.section{content-visibility:auto}` 在此页生效，
+  视口外章节跳过布局，长页面滚动更流畅
+
+入口：
+- `index.html` 的 `catalog-info` 区 → 「全部内容 (不分页)」
+- 每个章节页面包屑 → 「全部内容」
+
 ## 侧栏目录
 
 - `static/js/catalog.js` 注入 `<div id="sidebar">`，189 页共用一份
@@ -49,6 +62,6 @@
 
 | 项目 | 处理方式 |
 |---|---|
-| 全书不分页页（`quanben.html`） | 本书无此页，面包屑改为「返回目录」，并移除 `gather-content` id（避免 CSS 追加「（不分页）」） |
-| `index1.html` / `index2.html` | 本书未提供，面包屑「首页/中医书籍」改指 `../index.html`（经书导航） |
+| 全书不分页页（`quanben.html`） | 已生成，格式与模板书同构；`content-visibility` 由共享 CSS 自动生效 |
+| `index1.html` / `index2.html` | 本书未提供，面包屑与顶栏导航统一改指 `../index.html`（经书导航） |
 | 书名 | 模板中的《医学衷中参西录》全局替换为《四圣心源》 |

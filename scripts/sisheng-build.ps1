@@ -192,6 +192,9 @@ $problems = New-Object System.Collections.Generic.List[string]
 $total = $pages.Count
 $made = 0
 
+# collected for the full-book page: file name -> { Num, Heading, Body }
+$chapterData = @{}
+
 for ($i = 0; $i -lt $total; $i++) {
     $p = $pages[$i]
     $src = Get-SourcePath $p.Href
@@ -209,6 +212,14 @@ for ($i = 0; $i -lt $total; $i++) {
     $bodyHtml = Get-ChapterBody $raw
     $bodyHtml = Split-Paragraphs $bodyHtml
     if (-not $bodyHtml) { $problems.Add("$($p.File) : empty body") }
+
+    # remember the rendered body for the full-book page
+    $num = [regex]::Match($p.File, '(\d+)\.html$').Groups[1].Value
+    $chapterData[$num] = [pscustomobject]@{
+        Num     = $num
+        Heading = $heading
+        Body    = $bodyHtml
+    }
 
     $plain = ConvertTo-Plain $bodyHtml
     $desc = Get-Desc $plain
@@ -229,9 +240,9 @@ for ($i = 0; $i -lt $total; $i++) {
     $page = $descRx.Replace($page, '<meta name="description" content="中医书籍《' + $BookTitle + '》“' + $heading + '”：' + $desc + '">', 1)
     $page = $crumbRx.Replace($page, '<li><span>' + $p.Volume + '</span></li>', 1)
     $page = $h1Rx.Replace($page, '<h1 id="ci' + $p.Order + '">' + $heading + '</h1>', 1)
-    # this book has no full-book page: plain return-to-index link (no gather-content id,
-    # otherwise css.css would append a misleading "（不分页）" suffix)
-    $page = $gatherRx.Replace($page, '<a href="index.html" title="返回目录《' + $BookTitle + '》">返回目录</a>', 1)
+    # "全部内容" breadcrumb link -> the full-book page generated below
+    $page = $gatherRx.Replace($page,
+        '<a id="gather-content" href="quanben.html" title="全部内容《' + $BookTitle + '》(不分页)">全部内容</a>', 1)
 
     $page = $contentRx.Replace($page, '<div id="content">' + "`n" + $bodyHtml + "`n</div>" + "`n", 1)
     $nb = Get-NavBounds $page
@@ -271,9 +282,10 @@ function Get-DescendantFiles($node) {
     return $set
 }
 
-function New-TocHtml($node, [int]$depth) {
+function New-TocHtml($node, [int]$depth, [bool]$withSi) {
     $sb = New-Object System.Text.StringBuilder
     $hasKids = ($node.Children.Count -gt 0)
+    $num = if ($node.File) { [regex]::Match($node.File, '(\d+)\.html$').Groups[1].Value } else { '' }
 
     if ($hasKids) {
         [void]$sb.Append('<li><span>' + $node.Title + '</span>' + "`n" + '<ul>' + "`n")
@@ -282,15 +294,17 @@ function New-TocHtml($node, [int]$depth) {
         if ($node.File) {
             $desc = Get-DescendantFiles $node
             if (-not $desc.Contains($node.File)) {
-                [void]$sb.Append('<li><a href="' + $node.File + '" title="' + $node.Title + '">' + $node.Title + '</a></li>' + "`n")
+                $si = if ($withSi) { ' id="si' + $num + '"' } else { '' }
+                [void]$sb.Append('<li' + $si + '><a href="' + $node.File + '" title="' + $node.Title + '">' + $node.Title + '</a></li>' + "`n")
             }
         }
 
-        foreach ($c in $node.Children) { [void]$sb.Append((New-TocHtml $c ($depth + 1)) + "`n") }
+        foreach ($c in $node.Children) { [void]$sb.Append((New-TocHtml $c ($depth + 1) $withSi) + "`n") }
         [void]$sb.Append('</ul>' + "`n" + '</li>')
     }
     elseif ($node.File) {
-        [void]$sb.Append('<li><a href="' + $node.File + '" title="' + $node.Title + '">' + $node.Title + '</a></li>')
+        $si = if ($withSi) { ' id="si' + $num + '"' } else { '' }
+        [void]$sb.Append('<li' + $si + '><a href="' + $node.File + '" title="' + $node.Title + '">' + $node.Title + '</a></li>')
     }
     return $sb.ToString()
 }
@@ -314,8 +328,14 @@ foreach ($row in $toc) {
 
 $tocLines = New-Object System.Collections.Generic.List[string]
 [void]$tocLines.Add('<li><span>作者：' + $Author + '  朝代：' + $Dynasty + '</span></li>')
-foreach ($r in $roots) { [void]$tocLines.Add((New-TocHtml $r 1)) }
+foreach ($r in $roots) { [void]$tocLines.Add((New-TocHtml $r 1 $false)) }
 $tocHtml = ($tocLines -join "`n")
+
+# same tree, but every leaf carries id="siN" so the full-book page can jump in-page
+$tocLinesSi = New-Object System.Collections.Generic.List[string]
+[void]$tocLinesSi.Add('<li><span>作者：' + $Author + '  朝代：' + $Dynasty + '</span></li>')
+foreach ($r in $roots) { [void]$tocLinesSi.Add((New-TocHtml $r 1 $true)) }
+$tocHtmlSi = ($tocLinesSi -join "`n")
 
 $catalogInner = '<div id="sidebar"><div class="section"><h2 class="title"><a href="index.html">《' + $BookTitle + '》</a></h2>' +
                 '<ul id="guide" class="content" data-get="g">' + $tocHtml + '</ul></div></div>'
@@ -339,7 +359,9 @@ $idxDescRx = New-Object System.Text.RegularExpressions.Regex('<meta name="descri
 $idxH1Rx = New-Object System.Text.RegularExpressions.Regex('<h1>[^<]*</h1>')
 $idxCatRx = New-Object System.Text.RegularExpressions.Regex('(?s)<div id="catalog-info">.*?</div>\s*\n<ul id="catalog-content"[^>]*>.*?</ul>\s*\n</div>')
 
-$newCat = '<div id="catalog-info"></div>' + "`n" +
+$newCat = '<div id="catalog-info">' + "`n" +
+          '<a id="gather-content" href="quanben.html" title="全部内容(不分页)">全部内容</a>' + "`n" +
+          '</div>' + "`n" +
           '<ul id="catalog-content" data-m="3">' + "`n" + $tocHtml + "`n" + '</ul>' + "`n" + '</div>'
 
 if (-not $idxCatRx.IsMatch($idx)) { throw 'index template catalog block not found' }
@@ -358,11 +380,109 @@ $idxNew = $idxCatRx.Replace($idxNew, $newCat, 1)
 '===== INDEX ====='
 "index.html KB  : $([math]::Round([System.Text.Encoding]::UTF8.GetByteCount($idxNew) / 1KB, 1))"
 
+# ------------------------------------------------------------------ 7. quanben.html
+# Flatten the TOC into sections. Consecutive NCX nodes that share one source page
+# (e.g. 药方索引 / 拼音索引 / Ａ all live in 163.htm) are merged into a single
+# section carrying several headings, so every anchor id stays unique.
+$sections = New-Object System.Collections.Generic.List[object]
+$emitted = @{}
+$sectionByNum = @{}
+
+for ($ti = 0; $ti -lt $toc.Count; $ti++) {
+    $row = $toc[$ti]
+    $file = Get-FileName $row.Href
+    if (-not $file) { continue }
+    $num = [regex]::Match($file, '(\d+)\.html$').Groups[1].Value
+
+    $headings = $null
+    if ($sectionByNum.ContainsKey($num)) {
+        $headings = $sectionByNum[$num].Headings
+    }
+    elseif ($emitted.ContainsKey($num)) {
+        # same page already placed under a different section order; skip
+        continue
+    }
+    else {
+        $sec = [pscustomobject]@{
+            Num      = [int]$num
+            Headings = New-Object System.Collections.Generic.List[object]
+        }
+        $sections.Add($sec)
+        $sectionByNum[$num] = $sec
+        $emitted[$num] = $true
+        $headings = $sec.Headings
+    }
+
+    # a node owns sub-entries when the very next NCX row is one level deeper
+    $ownsKids = ($ti + 1 -lt $toc.Count -and $toc[$ti + 1].Depth -eq ($row.Depth + 1))
+    # h2 for volumes / index groups, h3 for plain chapters; later headings in a
+    # merged section are always h3
+    $level = if ($ownsKids -and $headings.Count -eq 0) { 2 } else { 3 }
+    $headings.Add([pscustomobject]@{ Title = $row.Title; Level = $level })
+}
+
+$qbParts = New-Object System.Collections.Generic.List[string]
+foreach ($sec in $sections) {
+    $num = $sec.Num.ToString()
+    $data = $chapterData[$num]
+    if (-not $data) { continue }
+
+    $block = New-Object System.Text.StringBuilder
+    [void]$block.Append('<div class="section" id="ci' + $num + '">' + "`n")
+    foreach ($h in $sec.Headings) {
+        [void]$block.Append('<h' + $h.Level + ' class="title">' + $h.Title + '</h' + $h.Level + '>' + "`n")
+    }
+    if ($data.Body) { [void]$block.Append($data.Body + "`n") }
+    [void]$block.Append('</div>')
+    $qbParts.Add($block.ToString())
+}
+$qbContent = ($qbParts -join "`n")
+
+$qbSidebar = '<div id="sidebar"><div class="section"><h2 class="title"><a href="index.html">《' + $BookTitle + '》</a></h2>' +
+             '<ul id="guide" class="content" data-get="q">' + $tocHtmlSi + '</ul></div></div>'
+
+$qbNav = "<ul id=`"nav-prev-next`">`n<li class=`"prev`"><a rel=`"prev`" href=`"index.html`" title=`"返回目录《$BookTitle》`">《$BookTitle》目录</a></li>`n</ul>"
+
+$qb = $tplBase
+$qb = $qb.Replace('医学衷中参西录', $BookTitle)
+$qb = $qb -replace '(?s)<title>.*?</title>', ('<title>《' + $BookTitle + '》(全本) - 中医书籍 - 中医世家</title>')
+$qb = $qb -replace '<meta name="keywords" content="[^"]*">', ('<meta name="keywords" content="《' + $BookTitle + '》,全本,中医书籍">')
+$qb = $qb -replace '<meta name="description" content="[^"]*">', ('<meta name="description" content="中医书籍：《' + $BookTitle + '》的全部内容(未分页)">')
+$qb = $qb.Replace('<div id="main" class="lilunshuji content page">', '<div id="main" class="lilunshuji content all page">')
+$qb = $qb.Replace('href="index1.html"', 'href="../index.html"')
+$qb = $qb.Replace('href="index2.html"', 'href="../index.html"')
+
+# breadcrumb: 首页 / 中医书籍 / 《书名》   (no trailing category, no 全部内容 self-link)
+$qbCrumb = '<ul id="breadcrumb">' + "`n" +
+           '<li><a href="../index.html" title="首页">首页</a></li>' + "`n" +
+           '<li><a href="../index.html" title="中医书籍">中医书籍</a></li>' + "`n" +
+           '<li><a id="gather-index" href="index.html" title="《' + $BookTitle + '》">《' + $BookTitle + '》</a></li></ul>'
+$qb = [regex]::Replace($qb, '(?s)<ul id="breadcrumb">.*?</ul>', $qbCrumb, 1)
+
+$qb = [regex]::Replace($qb, '(?s)<h1 id="ci\d+">[^<]*</h1>', ('<h1>《' + $BookTitle + '》<small>(全本)</small></h1>'), 1)
+$qb = $contentRx.Replace($qb, '<div id="content">' + "`n" + $qbContent + "`n</div>" + "`n", 1)
+
+# chapter pages carry a placeholder + catalog.js; the full-book page embeds its own
+# sidebar (data-get="q") so in-page jumping works without touching the shared script
+$qb = [regex]::Replace($qb,
+    '(?s)<div id="sidebar-ph"></div>\s*<script type="text/javascript" src="static/js/catalog.js"></script>',
+    $qbSidebar, 1)
+
+$qbNb = Get-NavBounds $qb
+if ($qbNb) { $qb = $qb.Remove($qbNb.Start, $qbNb.Length).Insert($qbNb.Start, $qbNav) }
+
+''
+'===== QUANBEN ====='
+"sections        : $($sections.Count)"
+"quanben.html KB : $([math]::Round([System.Text.Encoding]::UTF8.GetByteCount($qb) / 1KB, 1))"
+
 if ($Apply) {
     Write-Text (Join-Path $Root 'static\js\catalog.js') $catalogScript $false
     Write-Text (Join-Path $Root 'index.html') $idxNew $idxData.Bom
+    Write-Text (Join-Path $Root 'quanben.html') $qb $tplData.Bom
     ''
     'files written:'
     '  static/js/catalog.js'
     '  index.html'
+    '  quanben.html'
 }
